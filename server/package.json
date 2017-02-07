@@ -1,12 +1,16 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "blog RESTful Api",
+  "description": "blog api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db": "mongod -dbpath ./data",
+    "start": "nodemon ./bin/entry"
   },
-  "author": "suweya",
+  "keywords": [
+    "koa",
+    "mongodb"
+  ],
   "license": "ISC",
   "dependencies": {
     "babel-plugin-transform-async-to-generator": "^6.16.0",

@@ -1,3 +1,5 @@
+'use strict';
+
 export const config = {
-    dev: 'mongodb://localhost/koa-blog'
-}
+    development: 'mongodb://localhost/koa-blog'
+};
