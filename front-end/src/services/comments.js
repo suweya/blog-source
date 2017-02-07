@@ -11,7 +11,6 @@ export function fetchComments() {
 }
 
 export function createComment({ postId, comment }) {
-  const token = window.localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
   return request(`/api/comments?${stringify(postId)}`, {
     method: 'POST',
     headers: provideFormTokenHeaders(),
@@ -40,7 +39,7 @@ export function setVisibilityOfComment({ commentId, visible }) {
 }
 
 export function patchComment({ commentId, comment }) {
-  return request('', {
+  return request(`/api/comments/${commentId}`, {
     method: 'PATCH',
     headers: provideJsonTokenHeader(),
     body: JSON.stringify({
