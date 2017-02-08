@@ -1,63 +1,42 @@
 import request from '../utils/request'
+import BaseService from './baseService'
 import { stringify } from 'qs'
-import { provideFormHeaders, provideFormTokenHeaders, provideTokenHeader,
-         provideJsonTokenHeader, provideJsonHeader } from '../utils/headerUtil'
 
-export function fetchPosts({ pageInfo, keyword, userId }) {
-  return request(`/api/posts?${stringify({...pageInfo, keyword, userId})}`, {
-    method: 'GET',
-    headers: provideTokenHeader()
-  })
-}
+class PostService extends BaseService {
 
-export function fetchContent({ postId }) {
-  return request(`/api/posts/${postId}/content`, {
-    method: 'GET',
-    headers: provideTokenHeader()
-  })
-}
+  getPosts(pageInfo, keyword, userId) {
+    return super.get(`/api/posts?${stringify({...pageInfo, keyword, userId:user_id})}`)
+  }
 
-export function createPost({ title, content }) {
-  return request(`/api/posts`, {
-    method: 'POST',
-    headers: provideJsonTokenHeader(),
-    body: JSON.stringify({
+  getPostContent(postId) {
+    return super.get(`/api/posts/${postId}/content`)
+  }
+
+  createPost(title, content) {
+    return super.post('/api/posts', {
       title, content
     })
-  })
-}
+  }
 
-export function patchPost({ title, content, postId }) {
-  return request(`/api/posts/${postId}`, {
-    method: 'PATCH',
-    headers: provideJsonTokenHeader(),
-    body: JSON.stringify({
+  patchPost(title, content, postId) {
+    return super.patch(`/api/posts/${postId}`, {
       title, content
     })
-  })
-}
+  }
 
-export function setVisibilityOfPost({ visible, postId }) {
-  return request(`/api/posts/${postId}`, {
-    method: 'PATCH',
-    headers: provideJsonTokenHeader(),
-    body: JSON.stringify({
+  setVisibilityOfPost(visible, postId) {
+    return super.patch(`/api/posts/${postId}`, {
       visible
     })
-  })
+  }
+
+  deletePost(postId) {
+    super.delete(`/api/posts/${postId}`)
+  }
+
+  getPostInfo(postId) {
+    return super.get(`/api/posts/${postId}`)
+  }
 }
 
-export function deletePost({ postId }) {
-  return request(`/api/posts/${postId}`, {
-    method: 'DELETE',
-    headers: provideTokenHeader()
-  })
-}
-
-
-export function fetchPostInfo({ postId }) {
-  return request(`/api/posts/${postId}`, {
-    method: 'GET',
-    headers: provideTokenHeader()
-  })
-}
+export default new PostService()

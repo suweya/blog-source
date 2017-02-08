@@ -1,39 +1,31 @@
 import request from '../utils/request'
-import { stringify } from 'qs'
-import { provideFormHeaders, provideFormTokenHeaders, provideTokenHeader,
-         provideJsonTokenHeader, provideJsonHeader } from '../utils/headerUtil'
+import BaseService from './baseService'
 
-export function authentication(payload) {
-  return request('/api/token', {
-    method: 'POST',
-    headers: provideFormHeaders(),
-    body: stringify({
-      ...payload,
+class UserService extends BaseService {
+
+  auth(username, password) {
+    return super.post('/api/token', {
+      username,
+      password,
       grant_type: 'password'
-    })
-  })
+    }, false)
+  }
+
+  createUser(username, password, email) {
+    return super.post('/api/user', {
+      username,
+      password,
+      email
+    }, false)
+  }
+
+  getSelfInfo() {
+    return super.get('/api/user')
+  }
+
+  getUserInfo(userId) {
+    return super.get(`/api/user/${userId}`)
+  }
 }
 
-export function fetchUser() {
-  return request('/api/user', {
-    method: 'GET',
-    headers: provideTokenHeader()
-  })
-}
-
-export function createUser({ userName, passWord, email }) {
-  return request('/api/user', {
-    method: 'POST',
-    headers: provideJsonHeader(),
-    body: JSON.stringify({
-      userName, passWord, email
-    })
-  })
-}
-
-export function fetchUserDetail({ userId }) {
-  return request(`/api/user/${userId}`, {
-    method: 'GET',
-    headers: provideTokenHeader()
-  })
-}
+export default new UserService()

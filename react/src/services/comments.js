@@ -1,49 +1,35 @@
 import request from '../utils/request'
+import BaseService from './baseService'
 import { stringify } from 'qs'
-import { provideFormHeaders, provideFormTokenHeaders, provideTokenHeader,
-         provideJsonTokenHeader, provideJsonHeader } from '../utils/headerUtil'
 
-export function fetchComments() {
-  return request(`/api/comments?${stringify(postId)}`, {
-    method: 'GET',
-    headers: provideTokenHeader()
-  })
-}
+class CommentsService extends BaseService {
 
-export function createComment({ postId, comment }) {
-  return request(`/api/comments?${stringify(postId)}`, {
-    method: 'POST',
-    headers: provideFormTokenHeaders(),
-    body: stringify({
+  getComments(postId) {
+    return super.get(`/api/comments?${stringify(postId)}`)
+  }
+
+  createComment(postId, comment) {
+    return super.post(`/api/comments?${stringify(postId)}`, {
       postId,
       content: comment
     })
-  })
-}
+  }
 
-export function deleteComment({ commentId }) {
-  return request(`/api/comments/${commentId}`, {
-    method: 'DELETE',
-    headers: provideTokenHeader()
-  })
-}
+  deleteComment(commentId) {
+    return super.delete(`/api/comments/${commentId}`)
+  }
 
-export function setVisibilityOfComment({ commentId, visible }) {
-  return request(`/api/comments/${commentId}`, {
-    method: 'PATCH',
-    headers: provideJsonTokenHeader(),
-    body: JSON.stringify({
+  setVisibilityOfComment(commentId, visible) {
+    return super.patch(`/api/comments/${commentId}`, {
       visible
     })
-  })
-}
+  }
 
-export function patchComment({ commentId, comment }) {
-  return request(`/api/comments/${commentId}`, {
-    method: 'PATCH',
-    headers: provideJsonTokenHeader(),
-    body: JSON.stringify({
+  patchComment(commentId, comment) {
+    return super.patch(`/api/comments/${commentId}`, {
       content: comment
     })
-  })
+  }
 }
+
+export default new CommentsService()

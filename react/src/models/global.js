@@ -1,7 +1,8 @@
-import { authentication, fetchUser, createUser } from '../services/users'
+import { auth, getSelfInfo, createUser } from '../services/users'
 import { routerRedux } from 'dva/router'
 import { message } from 'antd'
-import LOCAL_STORAGE_TOKEN_KEY from '../constants/constants'
+import TOKEN_KEY from '../constants/constants'
+import { set, remove } from '../utils/storageUtil'
 
 export default {
   namespace: 'global',
@@ -15,21 +16,41 @@ export default {
     }
   },
   effects: {
-    authentication: function *({ payload: { username, password } }, { call, put }) {
+    // 授权
+    auth: function *({ payload: { username, password } }, { call, put }) {
       try {
-        const { data } = yield call(authentication, { username, password })
+        const { data } = yield call(auth, { username, password })
         if (data) {
           const { user, accessToken: { token } } = data
-
-          window.localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token)
+          // save accessToken
+          set(TOKEN_KEY, token)
           yield put({
-            type: 'AUTH_SUCCESS',
+            type: 'authSuccess',
             payload: { account: user }
           })
+          yield put(routerRedux.push('/posts'))
         }
       } catch(e) {
-
+        message.error('登录失败...')
       }
+    },
+    // 注册
+    register: function *({ payload: {username, password, email} }, { put, call }) {
+      const {data} = yield call(createUser, username, password, email)
+      if (data) {
+        yield put({
+          type: 'auth',
+          payload: { username, password }
+        })
+      }
+    },
+    // 注销
+    logout: function *(_, { put }) {
+      yield put({
+        type: 'authFail'
+      })
+      remove(TOKEN_KEY)
+      yield put(routerRedux.push('/login'))
     }
   },
   reducers: {

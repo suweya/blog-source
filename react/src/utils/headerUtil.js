@@ -1,8 +1,5 @@
-import { LOCAL_STORAGE_TOKEN_KEY } from '../constants/constants'
-
-function getToken() {
-  return window.localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
-}
+import { TOKEN_KEY } from '../constants/constants'
+import { get } from './LocalStorageUtil'
 
 export function provideFormHeaders() {
   return Headers({
@@ -12,20 +9,20 @@ export function provideFormHeaders() {
 
 export function provideFormTokenHeaders() {
   return Headers({
-    'Authorization': `Bearer ${getToken()}`,
+    'Authorization': `Bearer ${get(TOKEN_KEY)}`,
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
   })
 }
 
 export function provideTokenHeader() {
   return Headers({
-    'Authorization': `Bearer ${getToken()}`
+    'Authorization': `Bearer ${get(TOKEN_KEY)}`
   })
 }
 
 export function provideJsonTokenHeader() {
   return Headers({
-    'Authorization': `Bearer ${getToken()}`,
+    'Authorization': `Bearer ${get(TOKEN_KEY)}`,
     'Content-Type': 'application/json; charset=utf-8'
   })
 }
