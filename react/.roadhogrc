@@ -12,6 +12,12 @@
   },
   "extraBabelPlugins": [
     "transform-runtime",
-    ["import", { "libraryName": "antd", "style": "css" }]
-  ]
+    ["import", { "libraryName": "antd", "style": true }]
+  ],
+  "theme": {
+    "@primary-color": "#2196F3",
+    "@link-color": "#2196F3",
+    "@border-radius-base": "3px",
+    "@font-size-base": "14px"
+  }
 }

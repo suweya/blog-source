@@ -17,7 +17,8 @@ const Login = ({ loading, dispatch, form: { getFieldDecorator, validateFields } 
     <LoginLayout>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <span>Blog</span>
+          <Icon className={styles['logo-img']} type="code" />
+          <span>blog</span>
         </div>
         <Form onSubmit={onSubmit}>
           <Form.Item>
