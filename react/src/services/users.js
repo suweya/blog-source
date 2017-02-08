@@ -1,5 +1,4 @@
-import request from '../utils/request'
-import BaseService from './baseService'
+import BaseService from './baseService';
 
 class UserService extends BaseService {
 
@@ -7,25 +6,25 @@ class UserService extends BaseService {
     return super.post('/api/token', {
       username,
       password,
-      grant_type: 'password'
-    }, false)
+      grant_type: 'password',
+    }, false);
   }
 
   createUser(username, password, email) {
     return super.post('/api/user', {
       username,
       password,
-      email
-    }, false)
+      email,
+    }, false);
   }
 
   getSelfInfo() {
-    return super.get('/api/user')
+    return super.get('/api/user');
   }
 
   getUserInfo(userId) {
-    return super.get(`/api/user/${userId}`)
+    return super.get(`/api/user/${userId}`);
   }
 }
 
-export default new UserService()
+export default new UserService();

@@ -1,1 +1,1 @@
-export const TOKEN_KEY = 'blogAccessToken'
+export const TOKEN_KEY = 'blogAccessToken';

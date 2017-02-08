@@ -1,9 +1,12 @@
 {
+  "name": "blog",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "roadhog server",
     "build": "roadhog build",
-    "lint": "eslint --ext .js src test"
+    "lint": "eslint --ext .js src test",
+    "fix": "eslint --fix .js src test"
   },
   "engines": {
     "install-node": "6.9.2"

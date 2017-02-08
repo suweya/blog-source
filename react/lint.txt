@@ -1,0 +1,18 @@
+
+> blog@1.0.0 lint /Users/suweya/react-stack/blog-source/react
+> eslint --ext .js src test
+
+
+/Users/suweya/react-stack/blog-source/react/src/models/global.js
+  3:16  error  'getSelfInfo' is defined but never used  no-unused-vars
+
+/Users/suweya/react-stack/blog-source/react/src/routes/login/login.js
+   8:27  error    'dispatch' is defined but never used  no-unused-vars
+  12:7   warning  Unexpected console statement          no-console
+  62:25  error    'state' is defined but never used     no-unused-vars
+
+/Users/suweya/react-stack/blog-source/react/src/services/baseService.js
+  4:44  error  Trailing spaces not allowed  no-trailing-spaces
+
+✖ 5 problems (4 errors, 1 warning)
+
