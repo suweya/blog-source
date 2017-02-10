@@ -19,7 +19,7 @@ export default {
     // 授权
     *auth({ payload: { username, password } }, { call, put }) {
       try {
-        const { data } = yield call(auth, { username, password });
+        const { data } = yield call(auth, username, password);
         if (data) {
           const { user, accessToken: { token } } = data;
           // save accessToken

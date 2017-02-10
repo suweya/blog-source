@@ -6,10 +6,15 @@ import styles from './login.css';
 import LoginLayout from '../../components/loginLayout/loginLayout';
 
 const Login = ({ loading, dispatch, form: { getFieldDecorator, validateFields } }) => {
-  function onSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     validateFields((error, values) => {
-      console.log('=== ', values);
+      dispatch({
+        type: 'app/auth',
+        payload: {
+          ...values
+        }
+      });
     });
   }
 
@@ -20,7 +25,7 @@ const Login = ({ loading, dispatch, form: { getFieldDecorator, validateFields } 
           <Icon className={styles['logo-img']} type="code-o" />
           <span>blog</span>
         </div>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Form.Item>
             {
               getFieldDecorator('username', {
